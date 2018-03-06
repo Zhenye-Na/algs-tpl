@@ -39,10 +39,10 @@ divideConquer(0, 0);
 
 
 // 1.3 Dynamic Programming:
-// 1.3.1 from bottom to top
+// 1.3.1 from bottom to top | Time O(n^2) Space O(n^2)
 // condition
 A[i][j] : value of current position
-f[i][j] : start from (i.j) to last level, the smallest length of path
+f[i][j] : start from (i,j) to last level, the smallest length of path // 表示从 i, j 出发走到最后一层的最小路径长度
 
 // initialization: last level
 for(int i = 0; i < n; i++) {
@@ -64,7 +64,7 @@ f[0][0]
 // initialization
 f[0][0] = A[0][0];
 
-// initialize the left(first element) and right(last element) part of triangle
+// initialize the left (first element) and right (last element) part of triangle
 // only one way
 for(int i = 1; i < n; i++) {
     f[i][0] = f[i-1][0] + A[i][0];
@@ -123,7 +123,7 @@ initiaze:
 answer: f[n-1][m-1]
 
 public int minPathSum(int[][] grid){
-    if(grid == null || grid.length == 0 || grid[0].length == 0){
+    if(grid == null || grid.length == 0 || grid[0].length == 0) {
         return 0;
     }
     int M = grid.length;
@@ -133,14 +133,14 @@ public int minPathSum(int[][] grid){
     //initialization: the 0th row and 0th column
     //so you do not to check whether sum[i-1][j], sum[i][j-1] are exist later
     sum[0][0] = grid[0][0];
-    for(int i = 1; i < M; i++){
+    for(int i = 1; i < M; i++) {
         sum[i][0] = sum[i-1][0] + grid[i][0];
     }
-    for(int i = 1; i < N; i++){
+    for(int i = 1; i < N; i++) {
         sum[0][i] = sum[0][i-1] + grid[0][i];
     }
 
-    for(int i = 1; i < M; i++){
+    for(int i = 1; i < M; i++) {
         for(int j = 1; j < N; j++){
             sum[i][j] = Math.min(sum[i-1][j], sum[i][j-1]) + grid[i][j];
         }
@@ -167,13 +167,13 @@ function f[i] = (f[j] == true, j < i && j can reach i)
 initialize: f[0] = true
 answer: f[n-1]
 
-public boolean canJump(int[] A){
+public boolean canJump(int[] A) {
     boolean[] can = new boolean[A.length];
     can[0] = true;
 
-    for(int i = 1; i < A.length; i++){
-        for(int j = 0; j < i; j++){
-            if(can[j] == true && j + A[j] >= i){
+    for(int i = 1; i < A.length; i++) {
+        for(int j = 0; j < i; j++) {
+            if(can[j] == true && j + A[j] >= i) {
                 can[i] = true;
                 break;
             }
@@ -191,10 +191,10 @@ answer: f[n-1]
 public int jump(int[] A){
     int[] steps = new int[A.length];
     steps[0] = 0;
-    for(int i = 1; i < A.length; i++){
+    for(int i = 1; i < A.length; i++) {
         steps[i] = Integer.MAX_VALUE; //init: can not reach
-        for(int j = 0; j < i; j++){
-            if(steps[j] != Integer.MAX_VALUE && j + A[j] >= i){
+        for(int j = 0; j < i; j++) {
+            if(steps[j] != Integer.MAX_VALUE && j + A[j] >= i) {
                 /** Version 1:
                 steps[i] = steps[j] + 1;
                 break;
@@ -244,8 +244,8 @@ answer: f[n], n = s.length
 
 public class Solution{
     //test whether s[j+1 ~ i] is valid palindrome string
-    private boolean isPalindrome(String s, int start, int end){
-        for(int i = start, j = end; i < j; i++, j--){
+    private boolean isPalindrome(String s, int start, int end) {
+        for(int i = start, j = end; i < j; i++, j--) {
             if(s.charAt(i) != s.charAt(j)){
                 return false;
             }
@@ -256,41 +256,41 @@ public class Solution{
     //this is a interval-related DP: larger interval relies on smaller one
     //is f[i][j] is valid <--> f[i+1][j-1] is valid && s[i]==s[j]
     //e.g. "abbcbba" <--> "bbcbb" && 'a'=='a'
-    private boolean[][] getIsPalindrome(String s){
+    private boolean[][] getIsPalindrome(String s) {
         boolean[][] isPalindrome = new boolean[s.length()][s.length()];
 
         //interval = 0 --> single letter
-        for(int i = 0; i < s.length(); i++){
+        for(int i = 0; i < s.length(); i++) {
             isPalindrome[i][i] = true;
         }
         //interval = 1 --> two letters --> check whether they are same
-        for(int i = 0; i < s.length() - 1; i++){
+        for(int i = 0; i < s.length() - 1; i++) {
             isPalindrome[i][i+1] = (s.charAt(i) == s.charAt(i+1));
         }
         //interval >= 2
-        for(int length = 2; length < s.length(); length++){
-            for(int start = 0; start + length < s.length(); start++){
+        for(int length = 2; length < s.length(); length++) {
+            for(int start = 0; start + length < s.length(); start++) {
                 isPalindrome[start][start+length] = isPalindrome[start+1][start+length-1] && (s.charAt(start) == s.charAt(start+length));
             }
         }
         return isPalindrome;
     }
 
-    public int minCut(String s){
-        if(s == null || s.length() == 0){
+    public int minCut(String s) {
+        if(s == null || s.length() == 0) {
             return 0;
         }
         //preparation
         boolean[][] isPalindrome = getIsPalindrome(s);
         //initialize
         int[] f = new int[s.length() + 1];
-        for(int i = 0; i <= s.length(); i++){
+        for(int i = 0; i <= s.length(); i++) {
             f[i] = i - 1;
         }
         //main
-        for(int i = 1;i <= s.length() ; i++){
+        for(int i = 1;i <= s.length() ; i++) {
             for(int j = 0; j < i; j++){
-                if(isPalindrome[j][i-1] == true){
+                if(isPalindrome[j][i-1] == true) {
                     f[i] = Math.min(f[i], f[j]+1);
                 }
             }
