@@ -8,6 +8,19 @@
  */
 
 
+ /**
+  * Definition of TreeNode:
+  * public class TreeNode {
+  *     public int val;
+  *     public TreeNode left, right;
+  *     public TreeNode(int val) {
+  *         this.val = val;
+  *         this.left = this.right = null;
+  *     }
+  * }
+  */
+
+
 /**
  *  1. Preorder
  */
@@ -21,12 +34,12 @@ public class Solution{
         return result;
     }
     private void traverse(TreeNode root, ArrayList<Integer> result){
-        if(root == null){
+        if(root == null) {
             return;
         }
         result.add(root.val);
-        traverse(root.left,result);
-        traverse(root.right,result);
+        traverse(root.left, result);
+        traverse(root.right, result);
     }
 }
 
@@ -36,16 +49,18 @@ public class Solution{
     public ArrayList<Integer> preorderTraversal(TreeNode root){
         ArrayList<Integer> result = new ArrayList<Integer>();
         // null or leaf
-        if(root == null){
+        if(root == null) {
             return result;
         }
         //devide
         ArrayList<Integer> left = preorderTraversal(root.left);
         ArrayList<Integer> right = preorderTraversal(root.right);
+
         //conquer
         result.add(root.val);
         result.addAll(left);
         result.addAll(right);
+
         return result;
     }
 }
@@ -176,9 +191,6 @@ public class Solution{
 
 
 
-///////////////////////////////////////
-//4. Lowest Common Ancestor
-
 /**
  *  4. Lowest Common Ancestor
  */
@@ -268,7 +280,7 @@ public class Solution{
 
     public int maxPathSum(TreeNode root){
         ResultType result = helper(root);
-        return result.maxPath; 
+        return result.maxPath;
     }
 }
 
@@ -357,7 +369,7 @@ public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root){
 
 // 7.1 inorder, then validate
 
-/** 
+/**
  * 7.2 Divide and conquer
  *     find the largest node in left subtree
  *     find the smallest node in right subtree
@@ -397,7 +409,7 @@ public class Solution {
     public boolean isValidBST(TreeNode root) {
         return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    
+
     public boolean helper(TreeNode root, long minVal, long maxVal) {
         if (root == null) return true;
         if (root.val >= maxVal || root.val <= minVal) return false;
