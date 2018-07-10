@@ -1,4 +1,4 @@
-/** 
+/**
  *  Binary Search template
  *  @param nums an ineteger arrray sorted in ascending order.
  *  @param target an integer
@@ -25,18 +25,17 @@ public class Solution {
             } else {
                 start = mid;
             }
-
-            if (target == nums[start]) {
-                return start;
-            }
-
-            if (target == nums[end]) {
-                return end;
-            }
-
-            return -1;
-
         }
+
+        if (target == nums[start]) {
+            return start;
+        }
+
+        if (target == nums[end]) {
+            return end;
+        }
+
+        return -1;
 
     }
 }
