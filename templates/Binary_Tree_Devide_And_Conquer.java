@@ -383,6 +383,7 @@ class ResultType{
         this.minValue = minValue;
     }
 }
+
 public boolean isValidBST(TreeNode root){
     ResultType result = validateHelper(root);
     return result.isBST;
