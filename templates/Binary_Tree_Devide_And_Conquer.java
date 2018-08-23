@@ -27,13 +27,14 @@
 
 // 1.1 Traverse
 
-public class Solution{
-    public ArrayList<Integer> preorderTraversal(TreeNode root){
+public class Solution {
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         traverse(root, result);
         return result;
     }
-    private void traverse(TreeNode root, ArrayList<Integer> result){
+
+    private void traverse(TreeNode root, ArrayList<Integer> result) {
         if(root == null) {
             return;
         }
@@ -45,15 +46,15 @@ public class Solution{
 
 // 1.2 Devide and Conquer
 
-public class Solution{
-    public ArrayList<Integer> preorderTraversal(TreeNode root){
+public class Solution {
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         // null or leaf
         if(root == null) {
             return result;
         }
         //devide
-        ArrayList<Integer> left = preorderTraversal(root.left);
+        ArrayList<Integer> left  = preorderTraversal(root.left);
         ArrayList<Integer> right = preorderTraversal(root.right);
 
         //conquer
@@ -67,21 +68,23 @@ public class Solution{
 
 // 1.3 non-recursive: stack --> recommend
 
-public class Solution{
-    public ArrayList<Integer> preorderTraversal(TreeNode root){
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+public class Solution {
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack  = new Stack<TreeNode>();
         List<Integer> preorder = new ArrayList<Integer>();
-        if(root == null){
+        if(root == null) {
             return preorder;
         }
+
         stack.push(root);
-        while(!stack.isEmpty()){
+        while(!stack.isEmpty()) {
             TreeNode node = stack.pop();
             preorder.add(node.val);
-            if(node.right != null){
+
+            if(node.right != null) {
                 stack.push(node.right);
             }
-            if(node.left != null){
+            if(node.left != null) {
                 stack.push(node.left);
             }
         }
@@ -97,20 +100,23 @@ public class Solution{
 
 // 2.1 traversal
 
-public class Solution{
+public class Solution {
     private int depth;
-    public int maxDepth(TreeNode root){
+    public int maxDepth(TreeNode root) {
         depth = 0;
         helper(root, 1);
         return depth;
     }
-    private void helper(TreeNode currNode , int currDepth){
-        if(currNode == null){
+
+    private void helper(TreeNode currNode , int currDepth) {
+        if(currNode == null) {
             return; //depth = 0
         }
+
         if(currDepth > depth){
             depth = currDepth;
         }
+
         helper(currNode.left, currDepth + 1);
         helper(currNode.right, currDepth + 1);
     }
@@ -118,12 +124,12 @@ public class Solution{
 
 // 2.2 devide and conquer
 
-public class Solution{
-    public int maxDepth(TreeNode root){
-        if(root = null){
+public class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null){
             return 0;
         }
-        int left = maxDepth(root.left);
+        int left  = maxDepth(root.left);
         int right = maxDepth(root.right);
         return Math.max(left,right)+1;
     }
@@ -141,13 +147,15 @@ public class Solution{
     public boolean isBalanced(TreeNode root){
         return maxDepth(root) != -1;
     }
-    //return the maxDepth, if not balanced --> return -1
+    // return the maxDepth, if not balanced --> return -1
     private int maxDepth(TreeNode root){
-        if(root = null){
+        if(root == null){
             return 0;
         }
-        int left = maxDepth(root.left);
+
+        int left  = maxDepth(root.left);
         int right = maxDepth(root.right);
+
         //check
         if(left == -1 || right == -1 || Math.abs(left-right) > 1){
             return -1;
@@ -162,29 +170,33 @@ public class Solution{
 class ResultType{
     public boolean isBalanced;
     public int maxDepth;
-    public ResultType(boolean isBalanced, int maxDepth){
+    public ResultType(boolean isBalanced, int maxDepth) {
         this.isBalanced = isBalanced;
-        this.maxDepth = maxDepth;
+        this.maxDepth   = maxDepth;
     }
 }
 public class Solution{
-    public boolean isBalanced(TreeNode root){
+    public boolean isBalanced(TreeNode root) {
         return helper(root).isBalanced;
     }
-    private ResultType helper(TreeNode root){
-        if(root == null){
+    private ResultType helper(TreeNode root) {
+        if(root == null) {
             return new ResultType(true, 0);
         }
+
         ResultType left = helper(root.left);
         ResultType left = helper(root.right);
+
         //subtree not balance
-        if(!left.isBalanced || !right.isBalanced){
+        if(!left.isBalanced || !right.isBalanced) {
             return new ResultType(false, -1);
         }
+
         //root not balance
-        if(Math.abs(left.maxDepth-right.maxDepth) > 1){
+        if(Math.abs(left.maxDepth - right.maxDepth) > 1) {
             return new ResultType(false, -1);
         }
+
         return new ResultType(true, Math.max(left.maxDepth, right.maxDepth) + 1);
     }
 }
@@ -203,22 +215,25 @@ public class Solution{
      * all null --> null
      */
     public TreeNode lowestCommonAncestor(TreeNode root,
-                                    TreeNode A,
-                                    TreeNode B){
-        if(root == null || root == A || root == B){
+                                         TreeNode A,
+                                         TreeNode B) {
+        if(root == null || root == A || root == B) {
             return root;
         }
-        TreeNode left = lowestCommonAncestor(root.left, A, B);
+        TreeNode left  = lowestCommonAncestor(root.left, A, B);
         TreeNode right = lowestCommonAncestor(root.right, A, B);
-        if(left != null && right != null){
+
+        if(left != null && right != null) {
             return root;
         }
-        if(left != null){
+
+        if(left != null) {
             return left;
         }
-        if(right != null){
+        if(right != null) {
             return right;
         }
+
         return null;
     }
 }
@@ -231,16 +246,16 @@ public class Solution{
 
 
 // 5.1 the max sum of values in path: from root to any node
-public int maxPathSum(TreeNode root){
-    if(root == null){
+public int maxPathSum(TreeNode root) {
+    if(root == null) {
         return 0;
     }
     //divide
-    int left = maxPathSum(root.left);
+    int left  = maxPathSum(root.left);
     int right = maxPathSum(root.right);
     //conquer
     //if left&right < 0 , we do not need to add
-    return Math.max(Math.max(left,right),0)+root.val;
+    return Math.max(Math.max(left,right),0) + root.val;
 }
 
 
@@ -255,30 +270,33 @@ public class Solution{
         // singlePath: max path from root, can have no node
         // maxPath: any node to any node, at least 1 node
         int singlePath, maxPath;
-        ResultType(int singlePath, int maxPath){
+        ResultType(int singlePath, int maxPath) {
             this.singlePath = singlePath;
-            this.maxPath = maxPath;
+            this.maxPath    = maxPath;
         }
     }
 
-    private ResultType helper(TreeNode root){
-        if(root == null){
+    private ResultType helper(TreeNode root) {
+        if(root == null) {
             return new ResultType(0, Integer.MIN_VALUE);
         }
+
         //Divide
-        ResultType left = helper(root.left);
+        ResultType left  = helper(root.left);
         ResultType right = helper(root.right);
+
         //Conquer
         //compute new single path
-        int singlePath =Math.max(Math.max(left.singlePath, right.singlePath) + root.val, 0);
+        int singlePath   = Math.max(Math.max(left.singlePath, right.singlePath) + root.val, 0);
+
         //compute new max path
-        int maxPath = Math.max(left.maxPath, right.maxPath);
-        maxPath = Math.max(maxPath, left.singlePath + right.singlePath + root.val);
+        int maxPath      = Math.max(left.maxPath, right.maxPath);
+        maxPath          = Math.max(maxPath, left.singlePath + right.singlePath + root.val);
 
         return new ResultType(singlePath, maxPath);
     }
 
-    public int maxPathSum(TreeNode root){
+    public int maxPathSum(TreeNode root) {
         ResultType result = helper(root);
         return result.maxPath;
     }
