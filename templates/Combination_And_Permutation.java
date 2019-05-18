@@ -10,6 +10,7 @@
 
 /**
 1 Combination
+
 1.1 Subsets
 Problem: Given a set of distinct integers, S, return all possible subsets
 
@@ -305,7 +306,6 @@ class Solution {
         ArrayList<List<Integer>> permutations
              = new ArrayList<List<Integer>>();
         if (nums == null) {
-
             return permutations;
         }
 

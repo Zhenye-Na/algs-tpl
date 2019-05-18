@@ -48,7 +48,6 @@ public class Solution {
         
         List<Integer> left = inorderTraversal(root.left);
         List<Integer> right = inorderTraversal(root.right);
-        
 
         result.addAll(left);
         result.add(root.val);

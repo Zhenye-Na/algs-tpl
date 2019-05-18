@@ -6,6 +6,7 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+# Non-Recursion
 class Solution:
     """
     @param root: A Tree
@@ -29,7 +30,7 @@ class Solution:
             node = stack.pop()
             result.append(node.val)
 
-            # 3. 查找当前node的右边节点是否为空，如果不为空，重复 step 1
+            # 3. 查找当前 node 的右边节点是否为空, 如果不为空, 重复 step 1
             if node.right:
                 node = node.right
                 while node:
@@ -93,7 +94,6 @@ class Solution:
         result = []
         self.inorderHelper(root, result)
         return result
-
 
     def inorderHelper(self, root, result):
         if root is None:

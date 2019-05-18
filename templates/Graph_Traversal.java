@@ -14,7 +14,7 @@
 public List<UndirectedGraphNode> getGraphNodes(UndirectedGraphNode node) {
 
     // BFS to get all nodes
-    List<UndirectedGraphNode> graph = new ArrayList<>();
+    List<UndirectedGraphNode> graph  = new ArrayList<>();
     Set<UndirectedGraphNode> history = new HashSet<>();
     Queue<UndirectedGraphNode> queue = new LinkedList<>();
     queue.offer(node);
