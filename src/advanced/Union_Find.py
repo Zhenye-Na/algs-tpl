@@ -17,7 +17,7 @@ class UnionFind(object):
     """
 
     def __init__(self, n):
-        """Initialize Union Find."""
+        u"""Initialize Union Find."""
         super(UnionFind, self).__init__()
         self.father = {}
         for i in range(1, n + 1):
